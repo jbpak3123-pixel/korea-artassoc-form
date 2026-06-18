@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#3D2E8A">
+<!-- === OG / 카카오톡 링크 미리보기 === -->
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="한국미술문화포럼 입회신청서">
+<meta property="og:description" content="전국 미술인의 연대와 문화 발전을 위한 플랫폼에 함께해 주세요 · 입회비 20,000원">
+<meta property="og:url"         content="https://jbpak3123-pixel.github.io/korea-artassoc-form/">
+<meta property="og:image"       content="https://jbpak3123-pixel.github.io/korea-artassoc-form/og-image.png?v=3">
+<meta property="og:image:width"  content="800">
+<meta property="og:image:height" content="400">
+<meta property="og:locale"      content="ko_KR">
+<meta name="twitter:card"       content="summary_large_image">
+<meta name="twitter:title"      content="한국미술문화포럼 입회신청서">
+<meta name="twitter:description" content="전국 미술인의 연대와 문화 발전을 위한 플랫폼에 함께해 주세요">
+<meta name="twitter:image"      content="https://jbpak3123-pixel.github.io/korea-artassoc-form/og-image.png?v=3">
+<title>입회신청서 — 한국미술문화포럼</title>
+<style>
+  /* === RESET & BASE === */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', '맑은 고딕', sans-serif;
+    background: #F5F4F8; color: #1A1733;
+    min-height: 100vh; padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  /* === HEADER === */
+  .top-bar { background: #3D2E8A; padding: 20px 20px 24px; text-align: center; }
+  .top-bar::after { content: ''; display: block; width: 48px; height: 3px; background: #A89EDF; margin: 12px auto 0; border-radius: 2px; }
+  .org-label { font-size: 12px; color: #A89EDF; letter-spacing: 0.12em; margin-bottom: 6px; }
+  .page-title { font-size: clamp(18px, 5vw, 22px); font-weight: 600; color: #fff; letter-spacing: 0.06em; }
+  .page-sub { font-size: 13px; color: #C5BBF0; margin-top: 8px; line-height: 1.6; }
+
+  /* === PROGRESS === */
+  .progress-bar { background: #fff; padding: 14px 20px; border-bottom: 1px solid #E8E5F2; position: sticky; top: 0; z-index: 100; }
+  .progress-steps { display: flex; align-items: center; justify-content: space-between; max-width: 480px; margin: 0 auto; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; position: relative; }
+  .step:not(:last-child)::after { content: ''; position: absolute; top: 14px; left: 60%; width: 80%; height: 1px; background: #E0DCF5; }
+  .step.active:not(:last-child)::after { background: #7B6CD6; }
+  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: #E8E5F2; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #9490B8; position: relative; z-index: 1; transition: all 0.25s; }
+  .step.active .step-dot { background: #3D2E8A; color: #fff; box-shadow: 0 0 0 4px #DDD8F7; }
+  .step.done .step-dot { background: #7B6CD6; color: #fff; }
+  .step-label { font-size: 10px; color: #9490B8; white-space: nowrap; }
+  .step.active .step-label { color: #3D2E8A; font-weight: 600; }
+  .step.done .step-label { color: #7B6CD6; }
+
+  /* === CONTENT === */
+  .content { max-width: 540px; margin: 0 auto; padding: 0 16px 32px; }
+
+  /* === SECTION === */
+  .section { background: #fff; border-radius: 16px; margin-top: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(61,46,138,0.06); display: none; }
+  .section.active { display: block; }
+  .section-head { padding: 16px 20px 14px; border-bottom: 1px solid #F0EEF9; display: flex; align-items: center; gap: 10px; }
+  .section-icon { width: 36px; height: 36px; border-radius: 10px; background: #EEEAF9; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .section-title-text { font-size: 15px; font-weight: 600; color: #1A1733; }
+  .section-sub-text { font-size: 12px; color: #9490B8; margin-top: 2px; }
+  .fields { padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* === FIELD === */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-size: 13px; font-weight: 500; color: #3A3558; display: flex; align-items: center; gap: 4px; }
+  .req { color: #C0392B; font-size: 14px; line-height: 1; }
+  .opt { font-size: 11px; color: #B0ADCC; font-weight: 400; margin-left: 2px; }
+
+  input[type="text"], input[type="tel"], input[type="email"], input[type="date"], select, textarea {
+    width: 100%; padding: 13px 14px; border: 1.5px solid #E0DCF5; border-radius: 10px;
+    font-size: 15px; font-family: inherit; color: #1A1733; background: #FAFAFA;
+    appearance: none; -webkit-appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.4;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: #7B6CD6;
+    box-shadow: 0 0 0 3px rgba(123,108,214,0.12); background: #fff;
+  }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%239490B8' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+  textarea { resize: none; min-height: 80px; }
+  ::placeholder { color: #C5C2DA; }
+  .field-hint { font-size: 12px; color: #9490B8; line-height: 1.5; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* === CHECKBOX GROUP (활동분야) === */
+  .check-group { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    border: 1.5px solid #E0DCF5; border-radius: 10px; cursor: pointer;
+    background: #FAFAFA; transition: border-color 0.2s, background 0.2s;
+    user-select: none; -webkit-user-select: none;
+  }
+  .check-item:active { background: #EEEAF9; }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box { width: 20px; height: 20px; border-radius: 5px; border: 2px solid #C5C2DA; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .check-item.checked .check-box { background: #3D2E8A; border-color: #3D2E8A; }
+  .check-item.checked .check-box::after { content: ''; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+  .check-item.checked { border-color: #7B6CD6; background: #F4F0FE; }
+  .check-label { font-size: 14px; color: #1A1733; }
+
+  /* === RADIO GROUP === */
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-item {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    border: 1.5px solid #E0DCF5; border-radius: 10px; cursor: pointer;
+    background: #FAFAFA; transition: border-color 0.2s, background 0.2s;
+    user-select: none; -webkit-user-select: none;
+  }
+  .radio-item input[type="radio"] { display: none; }
+  .radio-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #C5C2DA; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .radio-item.checked .radio-dot { border-color: #3D2E8A; }
+  .radio-item.checked .radio-dot::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #3D2E8A; display: block; }
+  .radio-item.checked { border-color: #7B6CD6; background: #F4F0FE; }
+  .radio-label { font-size: 14px; color: #1A1733; flex: 1; }
+
+  /* === FEE CARD === */
+  .fee-card { margin: 16px 20px; background: linear-gradient(135deg, #3D2E8A 0%, #6454C0 100%); border-radius: 14px; padding: 20px; color: #fff; }
+  .fee-card-title { font-size: 12px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 16px; }
+  .fee-rows { display: flex; flex-direction: column; gap: 10px; }
+  .fee-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+  .fee-name { color: rgba(255,255,255,0.85); }
+  .fee-badge { font-size: 10px; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 20px; margin-left: 6px; color: rgba(255,255,255,0.75); }
+  .fee-amount { font-weight: 600; color: #fff; }
+  .fee-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 6px 0; }
+  .fee-total-row { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
+  .fee-total-label { font-size: 13px; color: rgba(255,255,255,0.8); }
+  .fee-total-amount { font-size: 20px; font-weight: 700; color: #fff; }
+  .fee-note { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 12px; line-height: 1.6; }
+
+  /* === ACCOUNT BOX === */
+  .account-box { margin: 0 20px 20px; background: #F5F4F8; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .account-icon { width: 36px; height: 36px; background: #EEEAF9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .account-label { font-size: 11px; color: #9490B8; margin-bottom: 3px; }
+  .account-info { font-size: 14px; font-weight: 600; color: #1A1733; }
+
+  /* === CONSENT === */
+  .consent-box { margin: 0 20px 20px; border: 1.5px solid #E0DCF5; border-radius: 12px; overflow: hidden; }
+  .consent-header { background: #F5F4F8; padding: 12px 16px; font-size: 13px; font-weight: 600; color: #3A3558; display: flex; align-items: center; gap: 6px; }
+  .consent-body { padding: 12px 16px; font-size: 12px; color: #6B6899; line-height: 1.8; border-bottom: 1px solid #F0EEF9; }
+  .consent-body strong { color: #3A3558; font-weight: 600; }
+  .consent-body .warn { color: #C0392B; }
+  .consent-check-item {
+    padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer; border-bottom: 1px solid #F0EEF9; transition: background 0.15s;
+    user-select: none; -webkit-user-select: none;
+  }
+  .consent-check-item:last-child { border-bottom: none; }
+  .consent-check-item:active { background: #F5F4F8; }
+  .consent-check-item input[type="checkbox"] { display: none; }
+  .consent-check-box { width: 20px; height: 20px; border-radius: 5px; border: 2px solid #C5C2DA; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .consent-check-item.checked .consent-check-box { background: #3D2E8A; border-color: #3D2E8A; }
+  .consent-check-item.checked .consent-check-box::after { content: ''; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+  .consent-text { font-size: 13px; color: #3A3558; line-height: 1.5; }
+  .consent-text .req { color: #C0392B; }
+  .consent-text .opt-tag { font-size: 11px; color: #9490B8; }
+
+  /* === SIGN === */
+  .sign-row { margin: 0 20px 20px; padding: 16px; background: #F5F4F8; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .sign-label { font-size: 13px; color: #6B6899; }
+  .sign-date { font-size: 15px; font-weight: 600; color: #3D2E8A; }
+
+  /* === NAVIGATION === */
+  .nav-area { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #E8E5F2; padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 200; }
+  .nav-inner { max-width: 540px; margin: 0 auto; display: flex; gap: 10px; }
+  .btn-prev { flex: 0 0 auto; width: 48px; height: 52px; border: 1.5px solid #E0DCF5; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; color: #7B6CD6; transition: background 0.15s; }
+  .btn-prev:active { background: #F0EEF9; }
+  .btn-next { flex: 1; height: 52px; background: #3D2E8A; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.15s; font-family: inherit; }
+  .btn-next:active { background: #2C1F6B; }
+  .btn-next:disabled { background: #B0ADCC; cursor: not-allowed; }
+
+  /* === COMPLETE === */
+  .complete-card { background: #fff; border-radius: 16px; margin-top: 16px; padding: 40px 24px; text-align: center; box-shadow: 0 1px 4px rgba(61,46,138,0.06); display: none; }
+  .complete-card.active { display: block; }
+  .complete-icon { width: 72px; height: 72px; background: #EEEAF9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
+  .complete-title { font-size: 20px; font-weight: 700; color: #3D2E8A; margin-bottom: 10px; }
+  .complete-msg { font-size: 14px; color: #6B6899; line-height: 1.8; }
+  .complete-steps { margin: 24px 0; background: #F5F4F8; border-radius: 12px; padding: 16px; text-align: left; }
+  .complete-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+  .complete-step:last-child { margin-bottom: 0; }
+  .cs-num { width: 24px; height: 24px; border-radius: 50%; background: #3D2E8A; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .cs-text { font-size: 13px; color: #3A3558; line-height: 1.6; }
+
+  /* === SPACER === */
+  .nav-spacer { height: calc(80px + env(safe-area-inset-bottom, 0px)); }
+
+  /* === ERROR === */
+  .field-error { border-color: #E74C3C !important; background-color: #FDF2F2 !important; }
+  .error-msg { font-size: 12px; color: #C0392B; display: none; }
+  .error-msg.show { display: block; }
+
+  /* === VALIDATION TOAST === */
+  #validation-toast {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: #C0392B; color: #fff;
+    padding: 14px 20px 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; font-weight: 500; line-height: 1.45;
+    box-shadow: 0 4px 12px rgba(192,57,43,0.35);
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+  #validation-toast.show {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #validation-toast .toast-icon { font-size: 18px; flex-shrink: 0; }
+  #validation-toast .toast-text { flex: 1; }
+  #validation-toast .toast-close {
+    flex-shrink: 0; background: none; border: none; color: rgba(255,255,255,0.8);
+    font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1;
+    pointer-events: auto;
+  }
+
+
+/* === 생년월일 분할 입력 === */
+  .birth-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+  .birth-seg {
+    flex: 3;
+    min-width: 0;
+    padding: 12px 6px;
+    border: 1.5px solid #E0DCF5;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1A1733;
+    background: #FAFAFA;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .birth-seg-sm { flex: 1.5; }
+  .birth-seg:focus {
+    outline: none;
+    border-color: #7B6CD6;
+    box-shadow: 0 0 0 3px rgba(123,108,214,0.12);
+    background: #fff;
+  }
+  .birth-dot {
+    font-size: 18px;
+    font-weight: 700;
+    color: #9490B8;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+
+  /* === 전화번호 분할 입력 === */
+  .phone-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    padding: 8px 14px;
+    border: 1.5px solid #E0DCF5;
+    border-radius: 10px;
+    background: #FAFAFA;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .phone-wrap:focus-within {
+    border-color: #7B6CD6;
+    box-shadow: 0 0 0 3px rgba(123,108,214,0.12);
+    background: #fff;
+  }
+  .phone-fixed {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3D2E8A;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    padding: 5px 0;
+  }
+  .phone-dash {
+    font-size: 18px;
+    font-weight: 700;
+    color: #9490B8;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+  .phone-seg {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: inherit;
+    color: #1A1733;
+    text-align: center;
+    padding: 5px 0;
+    outline: none;
+    letter-spacing: 0.1em;
+  }
+  .phone-seg::placeholder { color: #C5C2DA; letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+
+<!-- 유효성 검사 토스트 배너 -->
+<div id="validation-toast">
+  <span class="toast-icon">⚠️</span>
+  <span class="toast-text" id="validation-toast-msg">필수 항목을 모두 입력해 주세요.</span>
+  <button class="toast-close" onclick="hideToast()" aria-label="닫기">×</button>
+</div>
+
+<div class="top-bar">
+  <div class="org-label">KOREA FINE ARTS &amp; CULTURE FORUM</div>
+  <div class="page-title">한국미술문화포럼 입회신청서</div>
+  <div class="page-sub">전국 미술인의 연대와 문화 발전을 위한<br>플랫폼에 함께해 주세요</div>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-steps">
+    <div class="step active" id="st1"><div class="step-dot">1</div><div class="step-label">기본정보</div></div>
+    <div class="step" id="st2"><div class="step-dot">2</div><div class="step-label">회비안내</div></div>
+    <div class="step" id="st3"><div class="step-dot">3</div><div class="step-label">동의·제출</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- STEP 1: 기본 인적사항 + 회원 기본 정보 통합 -->
+<div class="section active" id="sec1">
+  <div class="section-head">
+    <div class="section-icon">👤</div>
+    <div>
+      <div class="section-title-text">기본 인적사항</div>
+      <div class="section-sub-text">필수 항목(*)을 빠짐없이 입력해 주세요</div>
+    </div>
+  </div>
+  <div class="fields">
+    <!-- 성명 + 성별: 한 줄 2칸 -->
+    <div class="row2">
+      <div class="field">
+        <label class="field-label">성명 <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="홍길동" inputmode="text" autocomplete="name">
+        <span class="error-msg" id="err-name">성명을 입력해 주세요.</span>
+      </div>
+      <div class="field">
+        <label class="field-label">성별 <span class="req">*</span></label>
+        <select id="gender">
+          <option value="">선택</option>
+          <option value="남">남성</option>
+          <option value="여">여성</option>
+        </select>
+        <span class="error-msg" id="err-gender">성별을 선택해 주세요.</span>
+      </div>
+    </div>
+    <!-- 생년월일: 단독 전체 너비 — 모바일에서 YYYY.MM.DD 3칸 모두 표시 -->
+    <div class="field">
+      <label class="field-label">생년월일 <span class="req">*</span></label>
+      <div class="birth-wrap">
+        <input type="text" id="birth-y" class="birth-seg" inputmode="numeric" maxlength="4" placeholder="YYYY"
+          oninput="handleBirthInput(this,'birth-y',4,'birth-m')">
+        <span class="birth-dot">.</span>
+        <input type="text" id="birth-m" class="birth-seg birth-seg-sm" inputmode="numeric" maxlength="2" placeholder="MM"
+          oninput="handleBirthInput(this,'birth-m',2,'birth-d')"
+          onkeydown="handleBirthBack(event,'birth-y')">
+        <span class="birth-dot">.</span>
+        <input type="text" id="birth-d" class="birth-seg birth-seg-sm" inputmode="numeric" maxlength="2" placeholder="DD"
+          oninput="handleBirthInput(this,'birth-d',2,null)"
+          onkeydown="handleBirthBack(event,'birth-m')">
+      </div>
+      <span class="error-msg" id="err-birth">생년월일을 정확히 입력해 주세요.</span>
+    </div>
+    <div class="field">
+      <label class="field-label">휴대전화 <span class="req">*</span></label>
+      <div class="phone-wrap" id="phone-container">
+        <span class="phone-fixed">010</span>
+        <span class="phone-dash">-</span>
+        <input type="text" id="phone-mid" class="phone-seg" inputmode="numeric" maxlength="4" placeholder="0000"
+          oninput="handlePhoneInput(this,'phone-mid',4,'phone-end')"
+          onkeydown="handlePhoneBack(event,null)">
+        <span class="phone-dash">-</span>
+        <input type="text" id="phone-end" class="phone-seg" inputmode="numeric" maxlength="4" placeholder="0000"
+          oninput="handlePhoneInput(this,'phone-end',4,null)"
+          onkeydown="handlePhoneBack(event,'phone-mid')">
+      </div>
+      <span class="error-msg" id="err-phone">휴대전화 번호를 모두 입력해 주세요.</span>
+    </div>
+
+    <div class="field">
+      <label class="field-label">현 주소 <span class="req">*</span></label>
+      <input type="text" id="region" placeholder="예: 서울특별시 강동구 천호대로 123" inputmode="text" autocomplete="street-address">
+      <span class="field-hint">도로명 주소 또는 지번 주소를 직접 입력해 주세요.</span>
+      <span class="error-msg" id="err-region">현 주소를 입력해 주세요.</span>
+    </div>
+  </div>
+  <!-- 회원 기본 정보 (통합) -->
+  <div class="section-head" style="border-top:1px solid #F0EEF9;">
+    <div class="section-icon">🎨</div>
+    <div>
+      <div class="section-title-text">회원 기본 정보</div>
+      <div class="section-sub-text">작가 활동 현황을 입력해 주세요</div>
+    </div>
+  </div>
+  <div class="fields">
+    <div class="field">
+      <label class="field-label">전공 / 장르 <span class="req">*</span></label>
+      <select id="genre">
+        <option value="">선택해 주세요</option>
+        <option>한국화</option><option>서양화</option><option>조각</option><option>디자인</option>
+        <option>수채화</option><option>판화</option><option>서예</option><option>문인화</option>
+        <option>공예(현대)</option><option>공예(전통)</option><option>민화</option><option>캘리그라피</option>
+        <option>미디어아트</option><option>설치미술</option><option>기타</option>
+      </select>
+      <span class="error-msg" id="err-genre">전공/장르를 선택해 주세요.</span>
+    </div>
+    <div class="field" id="field-belong">
+      <label class="field-label">주요 소속 단체 <span class="req">*</span></label>
+      <input type="text" id="belong-main" placeholder="예: 한국미술협회, 강동미술협회 등 또는 '없음'">
+      <span class="field-hint">현재 가입된 미술 단체명을 기재해 주세요. (없을 경우 '없음' 입력)</span>
+      <span class="error-msg" id="err-belong">소속 단체를 입력해 주세요.</span>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: 회비 납부 안내 -->
+<div class="section" id="sec2">
+  <div class="section-head">
+    <div class="section-icon">💳</div>
+    <div>
+      <div class="section-title-text">회비 납부 안내</div>
+      <div class="section-sub-text">신청 후 회비를 납부하시면 정회원으로 전환됩니다</div>
+    </div>
+  </div>
+  <div class="fee-card">
+    <div class="fee-card-title">한국미술문화포럼 · 입회비 안내</div>
+    <div class="fee-rows">
+      <div class="fee-row"><span class="fee-name">입회비 <span class="fee-badge">최초 1회</span></span><span class="fee-amount">20,000원</span></div>
+    </div>
+    <div class="fee-note">입회비 납부자는 확인 후 정회원 안내 드립니다.</div>
+  </div>
+  <div class="account-box">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="account-icon">🏦</div>
+      <div>
+        <div class="account-label">납부 계좌</div>
+        <div class="account-info" id="info-bank-account">농협 352-2389-7204-73</div>
+        <div class="account-label" style="margin-top:4px;">예금주</div>
+        <div class="account-info" id="info-bank-holder">박 광 숙</div>
+      </div>
+    </div>
+  </div>
+  <div class="fields" style="padding-top:0;">
+    <div style="background:#FFF8E1; border-radius:10px; padding:14px 16px; font-size:13px; color:#7B5A00; line-height:1.9;">
+      📌 <strong>납부 안내</strong><br>
+      · 회비는 한국미술문화포럼 총무이사 <strong>박광숙</strong>(예금주)로 입금하시기 바랍니다.<br>
+      · 입금자명은 반드시 <strong>신청인 성명</strong>과 동일하게 기재해 주세요.<br>
+      · 입금 확인 후 <strong>3영업일 이내</strong> 정회원 전환 및 회원증 발급 안내 연락드립니다.<br>
+      · 문의: <span style="color:#3D2E8A; font-weight:600;">총무이사 박광숙 ☎ 010-2732-7430</span>
+    </div>
+    <div id="fee-confirm-wrap" onclick="feeConfirmToggle()"
+      style="margin-top:4px; border:1.5px solid #E0DCF5; border-radius:12px; display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer; background:#FAFAFA; user-select:none; -webkit-user-select:none; transition:all 0.2s;">
+      <span id="fee-confirm-box" style="width:22px; height:22px; border-radius:6px; border:2px solid #C5C2DA; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.2s; background:#fff;"></span>
+      <span style="font-size:14px; color:#1A1733; font-weight:500;">상기 내용을 확인했습니다. <span style="color:#C0392B;">[필수]</span></span>
+    </div>
+    <span class="error-msg" id="err-fee-confirm" style="display:none; padding-left:4px; margin-top:4px;">납부 안내 확인 체크가 필요합니다.</span>
+  </div>
+</div>
+
+<!-- STEP 3: 개인정보 동의 및 최종 제출 -->
+<div class="section" id="sec3">
+  <div class="section-head">
+    <div class="section-icon">✅</div>
+    <div>
+      <div class="section-title-text">개인정보 동의 및 최종 제출</div>
+      <div class="section-sub-text">아래 내용을 확인하고 동의해 주세요</div>
+    </div>
+  </div>
+  <div class="consent-box" style="margin-top:16px;">
+    <div class="consent-header">🔒 개인정보 수집 및 이용 동의</div>
+    <div class="consent-body">
+      <strong>수집 항목:</strong> 성명, 생년월일, 연락처, 이메일, 주소, 미술 활동 정보<br>
+      <strong>수집 목적:</strong> 회원 관리, 활동 안내, 포럼 운영 및 행사 정보 제공<br>
+      <strong>보유 기간:</strong> 회원 탈퇴 시까지 (탈퇴 후 즉시 파기)<br>
+      <strong>제3자 제공:</strong> 없음 (법령에 의한 경우 제외)<br>
+      <span class="warn">※ 동의를 거부할 수 있으나, 거부 시 회원 가입이 불가합니다.</span>
+    </div>
+    <!-- div+onclick 구조: label-input 이중발화 완전 차단 -->
+    <div class="consent-check-item" id="consent1-wrap" onclick="toggleConsentItem('consent1')">
+      <input type="checkbox" id="consent1">
+      <div class="consent-check-box"></div>
+      <span class="consent-text">개인정보 수집 및 이용에 동의합니다. <span class="req">[필수]</span></span>
+    </div>
+    <div class="consent-check-item" id="consent2-wrap" onclick="toggleConsentItem('consent2')">
+      <input type="checkbox" id="consent2">
+      <div class="consent-check-box"></div>
+      <span class="consent-text">포럼 활동 관련 정보(공지, 행사 안내)를 문자·이메일로 수신합니다. <span class="opt-tag">[선택]</span></span>
+    </div>
+  </div>
+  <span class="error-msg" id="err-consent" style="margin:-12px 20px 16px; display:none;">필수 동의 항목에 체크해 주세요.</span>
+  <div class="sign-row">
+    <span class="sign-label">신청일</span>
+    <span class="sign-date" id="today-date">2026년 --월 --일</span>
+  </div>
+  <div class="fields" style="padding-top:0;">
+    <div style="background:#F5F4F8; border-radius:10px; padding:14px 16px; font-size:12px; color:#9490B8; line-height:1.8; text-align:center;">
+      본 신청서는 한국미술문화포럼 설립 준비 목적으로 수집되며,<br>개인정보보호법에 따라 안전하게 관리됩니다.
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE -->
+<div class="complete-card" id="complete">
+  <div class="complete-icon">🎉</div>
+  <div class="complete-title">신청이 완료되었습니다!</div>
+  <div class="complete-msg">
+    한국미술문화포럼에 입회 신청해 주셔서 감사합니다.<br>
+    아래 안내에 따라 회비를 납부하시면 정회원으로 전환됩니다.
+  </div>
+  <div class="complete-steps">
+    <div class="complete-step">
+      <div class="cs-num">1</div>
+      <div class="cs-text"><strong>회비 납부</strong><br><span id="complete-account">농협 352-2389-7204-73 (박광숙)</span><br><span style="color:#3D2E8A; font-weight:600;">20,000원</span>(입회비)</div>
+    </div>
+    <div class="complete-step">
+      <div class="cs-num">2</div>
+      <div class="cs-text"><strong>입금자명</strong><br>신청인 성명과 동일하게 기재해 주세요.</div>
+    </div>
+    <div class="complete-step">
+      <div class="cs-num">3</div>
+      <div class="cs-text"><strong>회원증 발급</strong><br>입금 확인 후 연락드립니다.</div>
+    </div>
+  </div>
+  <div class="complete-msg" style="font-size:13px; color:#9490B8;">문의: 총무이사 박광숙 ☎ 010-2732-7430</div>
+  <div style="margin-top:28px;">
+    <button id="btn-confirm-close" onclick="handleConfirmClose()"
+      style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 40px; background:#3D2E8A; color:#fff; border:none; border-radius:50px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; box-shadow:0 4px 16px rgba(61,46,138,0.25); width:100%; max-width:280px; transition:all 0.1s;"
+      onmousedown="this.style.transform='scale(0.97)'" onmouseup="this.style.transform='scale(1)'"
+      ontouchstart="this.style.transform='scale(0.97)'" ontouchend="this.style.transform='scale(1)'">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+        <polyline points="5.5,10.5 8.5,13.5 14.5,7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      확인
+    </button>
+  </div>
+
+</div>
+
+<div class="nav-spacer"></div>
+</div>
+
+<div class="nav-area" id="nav-area">
+  <div class="nav-inner">
+    <button class="btn-prev" id="btn-prev" onclick="prevStep()" style="display:none;">←</button>
+    <button class="btn-next" id="btn-next" onclick="nextStep()">다음 단계 →</button>
+  </div>
+</div>
+
+<script>
+  // ====================================================
+  // CONFIG — 실제 운영 전 반드시 교체하세요
+  // ====================================================
+  const CONFIG = {
+    web3forms_key: 'aa6aa41d-d861-4413-a582-34ee1d32ffdb',
+    sheets_url:    'https://script.google.com/macros/s/AKfycbymmhnYO_mx10emUR60StHf8fIg2bYWAc_0Kl1LC8hOFe2HSiPsk_4RsR-QMo0_mujiNg/exec',
+    admin_email:   'jbpak3123@hanmail.net',
+    bank_name:     '농협',
+    bank_account:  '352-2389-7204-73',
+    bank_holder:   '박광숙'
+  };
+
+  var _feeConfirmed = false;
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  // ── 초기화 (DOMContentLoaded) ────────────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    const d = new Date();
+    document.getElementById('today-date').textContent =
+      d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+    document.getElementById('info-bank-account').textContent =
+      CONFIG.bank_name + ' ' + CONFIG.bank_account;
+    document.getElementById('info-bank-holder').textContent = CONFIG.bank_holder;
+    updateProgress();
+  });
+
+  // ── 진행 표시 업데이트 ───────────────────────────────
+  function updateProgress() {
+    for (let i = 1; i <= totalSteps; i++) {
+      const st = document.getElementById('st' + i);
+      st.classList.remove('active', 'done');
+      if (i < currentStep) st.classList.add('done');
+      else if (i === currentStep) st.classList.add('active');
+      document.getElementById('sec' + i).classList.toggle('active', i === currentStep);
+    }
+    document.getElementById('btn-prev').style.display = currentStep > 1 ? 'flex' : 'none';
+    document.getElementById('btn-next').textContent =
+      currentStep === totalSteps ? '신청서 제출하기 ✓' : '다음 단계 →';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── 토스트 배너 ──────────────────────────────────────
+  var _toastTimer = null;
+  function showToast(msg) {
+    const toast = document.getElementById('validation-toast');
+    const msgEl = document.getElementById('validation-toast-msg');
+    if (msgEl) msgEl.textContent = msg || '필수 항목을 모두 입력해 주세요.';
+    toast.classList.add('show');
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(hideToast, 4000);
+  }
+  function hideToast() {
+    document.getElementById('validation-toast').classList.remove('show');
+    if (_toastTimer) { clearTimeout(_toastTimer); _toastTimer = null; }
+  }
+
+  // ── 첫 번째 오류 항목으로 스크롤 ─────────────────────
+  function scrollToFirstError() {
+    const el = document.querySelector('.field-error, .error-msg.show');
+    if (el) {
+      const target = el.closest('.field') || el;
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  // ── 유효성 검사 ──────────────────────────────────────
+  function showErr(errId, show, fieldId) {
+    const el = document.getElementById(errId);
+    if (el) el.classList.toggle('show', show);
+    if (fieldId) {
+      const f = document.getElementById(fieldId);
+      if (f) f.classList.toggle('field-error', show);
+    }
+  }
+
+  function validateStep(step) {
+    let ok = true;
+    let missingFields = [];
+
+    if (step === 1) {
+      const name    = document.getElementById('name').value.trim();
+      const gender  = document.getElementById('gender').value;
+      const birthY  = document.getElementById('birth-y').value.trim();
+      const birthM  = document.getElementById('birth-m').value.trim();
+      const birthD  = document.getElementById('birth-d').value.trim();
+      const birthOk = birthY.length === 4 && birthM.length >= 1 && birthD.length >= 1;
+      const phoneMid = document.getElementById('phone-mid').value.trim();
+      const phoneEnd = document.getElementById('phone-end').value.trim();
+      const phoneOk  = phoneMid.length === 4 && phoneEnd.length === 4;
+      const region  = document.getElementById('region').value.trim();
+
+      showErr('err-name',   !name,   'name');
+      showErr('err-gender', !gender, 'gender');
+      showErr('err-region', !region, 'region');
+
+      if (!name)   missingFields.push('성명');
+      if (!gender) missingFields.push('성별');
+      if (!region) missingFields.push('현 주소');
+
+      const birthErr  = document.getElementById('err-birth');
+      const birthY_el = document.getElementById('birth-y');
+      if (!birthOk) {
+        birthErr.classList.add('show'); birthY_el.classList.add('field-error');
+        missingFields.push('생년월일'); ok = false;
+      } else {
+        birthErr.classList.remove('show'); birthY_el.classList.remove('field-error');
+      }
+
+      const phoneErr = document.getElementById('err-phone');
+      const pWrap    = document.getElementById('phone-container');
+      if (!phoneOk) {
+        phoneErr.classList.add('show'); pWrap.classList.add('field-error');
+        missingFields.push('휴대전화'); ok = false;
+      } else {
+        phoneErr.classList.remove('show'); pWrap.classList.remove('field-error');
+      }
+
+      if (!name || !gender || !region) ok = false;
+
+      // 회원 기본 정보 검증
+      const genre     = document.getElementById('genre').value;
+      const belongVal = document.getElementById('belong-main').value.trim();
+      showErr('err-genre',  !genre,     'genre');
+      showErr('err-belong', !belongVal, 'belong-main');
+      if (!genre)     { missingFields.push('전공/장르'); ok = false; }
+      if (!belongVal) { missingFields.push('주요 소속 단체'); ok = false; }
+    }
+
+    if (step === 2) {
+      const errEl = document.getElementById('err-fee-confirm');
+      const wrap  = document.getElementById('fee-confirm-wrap');
+      if (!_feeConfirmed) {
+        errEl.style.display = 'block';
+        wrap.classList.add('field-error');
+        missingFields.push('납부 안내 확인');
+        ok = false;
+      } else {
+        errEl.style.display = 'none';
+        wrap.classList.remove('field-error');
+      }
+    }
+
+    if (step === 3) {
+      const c1    = document.getElementById('consent1').checked;
+      const errEl = document.getElementById('err-consent');
+      const wrap  = document.getElementById('consent1-wrap');
+      if (!c1) {
+        errEl.style.display = 'block';
+        wrap.classList.add('field-error');
+        missingFields.push('개인정보 수집·이용 동의');
+        ok = false;
+      } else {
+        errEl.style.display = 'none';
+        wrap.classList.remove('field-error');
+      }
+    }
+
+    if (!ok) {
+      const msg = missingFields.length > 0
+        ? '⚠ 미입력 항목: ' + missingFields.join(', ')
+        : '필수 항목을 모두 입력해 주세요.';
+      showToast(msg);
+      setTimeout(scrollToFirstError, 100);
+    } else {
+      hideToast();
+    }
+
+    return ok;
+  }
+
+  function nextStep() {
+    if (!validateStep(currentStep)) return;
+    hideToast();
+    if (currentStep < totalSteps) { currentStep++; updateProgress(); }
+    else { submitForm(); }
+  }
+  function prevStep() {
+    if (currentStep > 1) { currentStep--; updateProgress(); }
+  }
+
+  // ── 데이터 수집 ──────────────────────────────────────
+  function getBirthValue() {
+    const y = document.getElementById('birth-y').value.trim();
+    const m = document.getElementById('birth-m').value.trim();
+    const d = document.getElementById('birth-d').value.trim();
+    return y ? y + '.' + m.padStart(2,'0') + '.' + d.padStart(2,'0') : '';
+  }
+  function getPhoneValue() {
+    const mid = document.getElementById('phone-mid').value.trim();
+    const end = document.getElementById('phone-end').value.trim();
+    return (mid && end) ? '010-' + mid + '-' + end : '';
+  }
+  function collectFormData() {
+    return {
+      신청일시:     new Date().toLocaleString('ko-KR'),
+      성명:         document.getElementById('name').value.trim(),
+      성별:         document.getElementById('gender').value,
+      생년월일:     getBirthValue(),
+      휴대전화:     getPhoneValue(),
+      현주소:       document.getElementById('region').value.trim(),
+      전공장르:     document.getElementById('genre').value,
+      주요소속단체: document.getElementById('belong-main').value.trim(),
+      마케팅수신동의: document.getElementById('consent2').checked ? '동의' : '미동의',
+      납부상태: '미납', 회원번호: '', 비고: ''
+    };
+  }
+
+  // ── 제출 ─────────────────────────────────────────────
+  async function submitForm() {
+    const btn = document.getElementById('btn-next');
+    btn.disabled = true; btn.textContent = '제출 중...';
+
+    const data = collectFormData();
+    const emailBody = Object.entries(data)
+      .filter(([k]) => !['납부상태','회원번호','비고'].includes(k))
+      .map(([k,v]) => v ? k + ': ' + v : null).filter(Boolean).join('\n');
+
+    const web3Promise = fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ access_key: CONFIG.web3forms_key, subject: '[한국미술문화포럼] 입회신청 — ' + data['성명'] + ' (' + data['거주지역'] + ' / ' + data['전공장르'] + ')', from_name: '한국미술문화포럼 입회신청', email: CONFIG.admin_email, message: emailBody, botcheck: '' })
+    }).catch(() => ({ ok: false }));
+
+    const sheetsPromise = CONFIG.sheets_url !== 'YOUR_GOOGLE_APPS_SCRIPT_URL'
+      ? fetch(CONFIG.sheets_url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(() => ({ ok: false }))
+      : Promise.resolve({ ok: true, skipped: true });
+
+    await Promise.allSettled([web3Promise, sheetsPromise]);
+
+    for (let i = 1; i <= totalSteps; i++) {
+      document.getElementById('sec' + i).classList.remove('active');
+      document.getElementById('st' + i).classList.remove('active');
+      document.getElementById('st' + i).classList.add('done');
+    }
+    document.getElementById('complete-account').textContent =
+      CONFIG.bank_name + ' ' + CONFIG.bank_account + ' (' + CONFIG.bank_holder + ')';
+    document.getElementById('complete').classList.add('active');
+    document.getElementById('nav-area').style.display = 'none';
+    _formSubmitted = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── 체크/라디오/동의 핸들러 ──────────────────────────
+  /* 활동분야 체크 — div+onclick, 이중발화 없음 */
+  function toggleCheckItem(el) {
+    el.classList.toggle('checked');
+    el.querySelector('input[type="checkbox"]').checked = el.classList.contains('checked');
+  }
+
+  /* 가입경로 라디오 — div+onclick, 이중발화 없음 */
+  function toggleRadioItem(el, groupId) {
+    document.querySelectorAll('#' + groupId + ' .radio-item').forEach(item => {
+      item.classList.remove('checked');
+      item.querySelector('input[type="radio"]').checked = false;
+    });
+    el.classList.add('checked');
+    el.querySelector('input[type="radio"]').checked = true;
+    document.getElementById('err-route').classList.remove('show');
+  }
+
+  /* 납부확인 체크 */
+  function feeConfirmToggle() {
+    _feeConfirmed = !_feeConfirmed;
+    const box  = document.getElementById('fee-confirm-box');
+    const wrap = document.getElementById('fee-confirm-wrap');
+    const err  = document.getElementById('err-fee-confirm');
+    if (_feeConfirmed) {
+      wrap.style.borderColor = '#7B6CD6'; wrap.style.background = '#F4F0FE';
+      box.style.background   = '#3D2E8A'; box.style.borderColor  = '#3D2E8A';
+      box.innerHTML = '<svg width="13" height="10" viewBox="0 0 13 10" fill="none"><polyline points="1.5,5 5,8.5 11.5,1.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      if (err) err.style.display = 'none';
+      wrap.classList.remove('field-error');
+    } else {
+      wrap.style.borderColor = '#E0DCF5'; wrap.style.background = '#FAFAFA';
+      box.style.background   = '#fff';    box.style.borderColor  = '#C5C2DA';
+      box.innerHTML = '';
+    }
+  }
+
+  /* 개인정보 동의 — div+onclick(id), 이중발화 완전 차단 */
+  function toggleConsentItem(id) {
+    const cb   = document.getElementById(id);
+    const wrap = document.getElementById(id + '-wrap');
+    cb.checked = !cb.checked;
+    wrap.classList.toggle('checked', cb.checked);
+    if (id === 'consent1' && cb.checked) {
+      document.getElementById('err-consent').style.display = 'none';
+      wrap.classList.remove('field-error');
+    }
+  }
+
+  // ── 분할 입력 핸들러 ─────────────────────────────────
+  function handlePhoneInput(el, id, maxLen, nextId) {
+    el.value = el.value.replace(/[^0-9]/g, '');
+    if (el.value.length >= maxLen && nextId) {
+      const next = document.getElementById(nextId);
+      if (next) { next.focus(); next.select(); }
+    }
+    document.getElementById('err-phone').classList.remove('show');
+    document.getElementById('phone-container').classList.remove('field-error');
+  }
+  function handlePhoneBack(e, prevId) {
+    if (e.key === 'Backspace' && e.target.value === '' && prevId) {
+      const prev = document.getElementById(prevId);
+      if (prev) { prev.focus(); setTimeout(() => prev.setSelectionRange(prev.value.length, prev.value.length), 0); }
+    }
+  }
+  function handleBirthInput(el, id, maxLen, nextId) {
+    el.value = el.value.replace(/[^0-9]/g, '');
+    if (id === 'birth-m') { const v = parseInt(el.value,10); if (el.value.length===2&&(v<1||v>12)) el.value=''; }
+    if (id === 'birth-d') { const v = parseInt(el.value,10); if (el.value.length===2&&(v<1||v>31)) el.value=''; }
+    if (el.value.length >= maxLen && nextId) {
+      setTimeout(() => { const next = document.getElementById(nextId); if (next) { next.focus(); next.select(); } }, 0);
+    }
+    document.getElementById('err-birth').classList.remove('show');
+    document.getElementById('birth-y').classList.remove('field-error');
+  }
+  function handleBirthBack(e, prevId) {
+    if (e.key === 'Backspace' && e.target.value === '' && prevId) {
+      const prev = document.getElementById(prevId);
+      if (prev) { prev.focus(); setTimeout(() => prev.setSelectionRange(prev.value.length, prev.value.length), 0); }
+    }
+  }
+
+  // ── 에러 실시간 초기화 ───────────────────────────────
+  ['name','belong-main','region'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => el.classList.remove('field-error'));
+  });
+  ['gender','genre'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => el.classList.remove('field-error'));
+  });
+
+  // ── 완료 확인 버튼 ───────────────────────────────────
+  function handleConfirmClose() {
+    // 1순위: 스크립트로 열린 탭(카카오 인앱 등)은 window.close()로 닫힘
+    try { window.close(); } catch(e) {}
+    // 2순위: 닫기 실패한 경우 → about:blank로 즉시 이동 (빈화면 = 종료와 동일 경험)
+    setTimeout(function() {
+      if (!window.closed) {
+        window.location.replace('about:blank');
+      }
+    }, 100);
+  }
+
+  // ── 뒤로가기(브라우저/안드로이드) 처리 ─────────────
+  var _formSubmitted = false;
+  history.pushState({ step: 1 }, '');
+  window.addEventListener('popstate', function() {
+    if (_formSubmitted) return;
+    const isComplete = document.getElementById('complete').classList.contains('active');
+    if (isComplete) return;
+    if (currentStep > 1) {
+      history.pushState({ step: currentStep }, '');
+      prevStep();
+    } else {
+      const leave = confirm('입력 중인 내용이 사라집니다.\n페이지를 나가시겠습니까?');
+      if (leave) { history.back(); }
+      else        { history.pushState({ step: 1 }, ''); }
+    }
+  });
+</script>
+</body>
+</html>
