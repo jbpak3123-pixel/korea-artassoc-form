@@ -415,6 +415,36 @@
       <span class="error-msg" id="err-belong">소속 단체를 입력해 주세요.</span>
     </div>
   </div>
+  <!-- 가입 동기 (선택) -->
+  <div class="section-head" style="border-top:1px solid #F0EEF9;">
+    <div class="section-icon">💬</div>
+    <div>
+      <div class="section-title-text">가입 동기</div>
+      <div class="section-sub-text">어떻게 알고 신청하게 되셨나요? (선택)</div>
+    </div>
+  </div>
+  <div class="fields">
+    <div class="field">
+      <label class="field-label">가입 경로 <span class="opt">(선택)</span></label>
+      <div class="radio-group" id="join-route-group">
+        <div class="radio-item" id="route-rumor-wrap" onclick="toggleJoinRoute(this,'route-rumor','rumor')">
+          <input type="radio" name="join-route" id="route-rumor">
+          <div class="radio-dot"></div>
+          <span class="radio-label">주변 소문을 통해 알게 되어서</span>
+        </div>
+        <div class="radio-item" id="route-referral-wrap" onclick="toggleJoinRoute(this,'route-referral','referral')">
+          <input type="radio" name="join-route" id="route-referral">
+          <div class="radio-dot"></div>
+          <span class="radio-label">지인으로부터 소개 받아서</span>
+        </div>
+      </div>
+    </div>
+    <div class="field" id="field-referrer" style="display:none;">
+      <label class="field-label">추천인 성함 <span class="opt">(선택)</span></label>
+      <input type="text" id="referrer-name" placeholder="가입을 권유해 주신 분의 성함">
+      <span class="field-hint">가입을 권유받으신 경우, 추천인 성함을 입력해 주세요.</span>
+    </div>
+  </div>
 </div>
 
 <!-- STEP 2: 회비 납부 안내 -->
@@ -470,6 +500,7 @@
       <div class="section-sub-text">아래 내용을 확인하고 동의해 주세요</div>
     </div>
   </div>
+
   <div class="consent-box" style="margin-top:16px;">
     <div class="consent-header">🔒 개인정보 수집 및 이용 동의</div>
     <div class="consent-body">
@@ -565,6 +596,7 @@
   };
 
   var _feeConfirmed = false;
+  var _joinRoute = '';
   let currentStep = 1;
   const totalSteps = 3;
 
@@ -708,6 +740,7 @@
         errEl.style.display = 'none';
         wrap.classList.remove('field-error');
       }
+      // 가입동기/추천인은 선택 사항이므로 검증하지 않음
     }
 
     if (!ok) {
@@ -745,6 +778,11 @@
     const end = document.getElementById('phone-end').value.trim();
     return (mid && end) ? '010-' + mid + '-' + end : '';
   }
+  function getJoinRouteLabel() {
+    if (_joinRoute === 'rumor') return '주변 소문을 통해 알게 되어서';
+    if (_joinRoute === 'referral') return '지인으로부터 소개 받아서';
+    return '';
+  }
   function collectFormData() {
     return {
       신청일시:     new Date().toLocaleString('ko-KR'),
@@ -755,8 +793,9 @@
       현주소:       document.getElementById('region').value.trim(),
       전공장르:     document.getElementById('genre').value,
       주요소속단체: document.getElementById('belong-main').value.trim(),
+      가입경로:     getJoinRouteLabel(),
       마케팅수신동의: document.getElementById('consent2').checked ? '동의' : '미동의',
-      납부상태: '미납', 회원번호: '', 비고: ''
+      추천인:       document.getElementById('referrer-name').value.trim()
     };
   }
 
@@ -767,7 +806,6 @@
 
     const data = collectFormData();
     const emailBody = Object.entries(data)
-      .filter(([k]) => !['납부상태','회원번호','비고'].includes(k))
       .map(([k,v]) => v ? k + ': ' + v : null).filter(Boolean).join('\n');
 
     const web3Promise = fetch('https://api.web3forms.com/submit', {
@@ -802,7 +840,26 @@
     el.querySelector('input[type="checkbox"]').checked = el.classList.contains('checked');
   }
 
-  /* 가입경로 라디오 — div+onclick, 이중발화 없음 */
+  /* 가입경로 라디오 — div+onclick, 이중발화 없음. 지인소개 선택 시 추천인 입력란 노출 */
+  function toggleJoinRoute(el, inputId, type) {
+    document.querySelectorAll('#join-route-group .radio-item').forEach(item => {
+      item.classList.remove('checked');
+      item.querySelector('input[type="radio"]').checked = false;
+    });
+    el.classList.add('checked');
+    document.getElementById(inputId).checked = true;
+    _joinRoute = type;
+
+    const referrerField = document.getElementById('field-referrer');
+    if (type === 'referral') {
+      referrerField.style.display = 'flex';
+    } else {
+      referrerField.style.display = 'none';
+      document.getElementById('referrer-name').value = '';
+    }
+  }
+
+  /* 가입경로 라디오(범용) — 다른 라디오 그룹에서 재사용 가능 */
   function toggleRadioItem(el, groupId) {
     document.querySelectorAll('#' + groupId + ' .radio-item').forEach(item => {
       item.classList.remove('checked');
@@ -810,7 +867,6 @@
     });
     el.classList.add('checked');
     el.querySelector('input[type="radio"]').checked = true;
-    document.getElementById('err-route').classList.remove('show');
   }
 
   /* 납부확인 체크 */
